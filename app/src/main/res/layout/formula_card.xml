@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/formula_card_style">
@@ -31,17 +32,28 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp">
 
-            <TextView
+<!--            <TextView-->
+<!--                android:id="@+id/formula_expression"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:fontFamily="monospace"-->
+<!--                android:text="Выражение"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="24sp" />-->
+
+            <ru.noties.jlatexmath.JLatexMathView
                 android:id="@+id/formula_expression"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="monospace"
-                android:text="Выражение"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:background="#00FFFFFF"
+                app:jlmv_textColor="@color/white"
+                app:jlmv_alignVertical="center"
+                app:jlmv_alignHorizontal="start"
+                app:jlmv_textSize="25sp" />
 
             <ImageButton
+                android:id="@+id/add_to_favorites"
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"

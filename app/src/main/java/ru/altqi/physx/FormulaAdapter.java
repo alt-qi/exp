@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ru.noties.jlatexmath.JLatexMathView;
+
 public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final List<Formula> formulas;
+    public List<Formula> formulas;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView formulaNameView, formulaExpressionView;
+        final TextView formulaNameView;
+        final JLatexMathView formulaExpressionView;
 
         ViewHolder(View view){
             super(view);
@@ -40,7 +43,7 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
     @Override
     public void onBindViewHolder(FormulaAdapter.ViewHolder holder, int position) {
         Formula formula = formulas.get(position);
-        holder.formulaExpressionView.setText(formula.expression);
+        holder.formulaExpressionView.setLatex(formula.expression);
         holder.formulaNameView.setText(formula.name);
     }
 
