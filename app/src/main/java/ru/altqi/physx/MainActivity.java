@@ -6,66 +6,63 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import ru.noties.jlatexmath.JLatexMathDrawable;
-import ru.noties.jlatexmath.JLatexMathView;
+import ru.altqi.physx.db.FormulaAdapter;
+import ru.altqi.physx.db.FormulasDBWrapper;
+import ru.altqi.physx.db.OpenHelper;
+import ru.altqi.physx.formulas.FormulaCard;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Formula> formulas = new ArrayList<>();
-    Button insertFormulaButton, resetDBButton;
-    EditText formulaNameInput, formulaExpressionInput;
+    Button resetDBButton;
+    FloatingActionButton createFormulaButton;
+    RecyclerView recyclerView;
+
+    ArrayList<FormulaCard> formulaCards = new ArrayList<>();
+    OpenHelper dbHelper;
+    FormulasDBWrapper db;
+    FormulaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.formulas_list);
-//
-//        for (int i = 0; i < recyclerView.getChildCount(); i++) {
-//            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(i);
-//            Button a = viewHolder.itemView.findViewById(R.id.add_to_favorites);
-//        }
-
-
+        recyclerView = findViewById(R.id.formulas_list);
         resetDBButton = findViewById(R.id.reset_db);
-        insertFormulaButton = findViewById(R.id.insert_formula);
+        createFormulaButton = findViewById(R.id.create_formula_button);
 
-        formulaExpressionInput = findViewById(R.id.formula_expression_input);
-        formulaNameInput = findViewById(R.id.formula_name_input);
+        dbHelper = new OpenHelper(this);
+        db = new FormulasDBWrapper(dbHelper.getWritableDatabase());
 
-        OpenHelper dbHelper = new OpenHelper(this);
-        FormulasDBWrapper db = new FormulasDBWrapper(dbHelper.getReadableDatabase());
+        formulaCards = db.getFormulaCardsList();
 
-        formulas = db.getFormulasList();
-
-        FormulaAdapter adapter = new FormulaAdapter(this, formulas);
+        adapter = new FormulaAdapter(this, formulaCards, db);
         recyclerView.setAdapter(adapter);
 
-        insertFormulaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Formula formula = new Formula(
-                        formulaNameInput.getText().toString(),
-                        formulaExpressionInput.getText().toString()
-                );
-                db.addFormula(formula);
-                adapter.formulas.add(formula);
-                adapter.notifyDataSetChanged();
-            }
-        });
+        resetDBButton.setOnClickListener(new ResetDBButtonOnClickListener());
+        createFormulaButton.setOnClickListener(new CreateFormulaButtonOnClickListener());
 
-        resetDBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dbHelper.onUpgrade(db.getDB(), 0, 0);
-                adapter.formulas = db.getFormulasList();
-                adapter.notifyDataSetChanged();
-            }
-        });
+    }
+
+    class CreateFormulaButtonOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            FormulaCreationDialog dialog = new FormulaCreationDialog(adapter, db);
+            dialog.show(getSupportFragmentManager(), "fc");
+        }
+    }
+
+    class ResetDBButtonOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            dbHelper.onUpgrade(db.getDB(), 0, 0);
+            adapter.formulas = db.getFormulaCardsList();
+            adapter.notifyDataSetChanged();
+        }
     }
 }

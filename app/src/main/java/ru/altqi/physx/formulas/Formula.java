@@ -1,8 +1,13 @@
-package ru.altqi.physx;
+package ru.altqi.physx.formulas;
 
-public class Formula {
+import com.google.gson.annotations.Expose;
 
+class Formula {
+
+    @Expose
     public String name;
+
+    @Expose
     public String expression;
 
     public Formula(String name, String expression) {

@@ -9,10 +9,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primaryColor">#0277bd</color>
-    <color name="primaryLightColor">#58a5f0</color>
-    <color name="primaryDarkColor">#004c8c</color>
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="primaryColor">#FF0277bd</color>
+    <color name="primaryLightColor">#FF58a5f0</color>
+    <color name="primaryDarkColor">#FF004c8c</color>
+    <color name="primaryTextColor">#FFffffff</color>
 
     <color name="orange_soda">#FFF2643F</color>
     <color name="sun_soda">#FFf29b3f</color>

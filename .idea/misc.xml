@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable-anydpi/ic_add.xml" value="0.2845" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable-anydpi/ic_star_checked.xml" value="0.1325" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable-anydpi/ic_star_unchecked.xml" value="0.2845" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable/formula_background.xml" value="0.2845" />
@@ -10,8 +11,10 @@
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable/star.xml" value="0.2845" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable/star_button.xml" value="0.1325" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/drawable/star_outlined_foreground.xml" value="0.2845" />
-        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_card.xml" value="0.1" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/create_formula_window.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_card.xml" value="0.33" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_creation_dialog.xml" value="0.1" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_fragment.xml" value="0.25" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_blank.xml" value="0.358695652173913" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/mipmap-anydpi-v26/star_outlined.xml" value="0.1325" />
