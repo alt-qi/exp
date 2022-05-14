@@ -1,4 +1,4 @@
-package ru.altqi.physx.db;
+package ru.altqi.physx.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

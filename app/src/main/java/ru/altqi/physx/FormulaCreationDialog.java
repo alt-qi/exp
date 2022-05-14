@@ -3,7 +3,6 @@ package ru.altqi.physx;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -11,8 +10,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import ru.altqi.physx.db.FormulaAdapter;
-import ru.altqi.physx.db.FormulasDBWrapper;
+import ru.altqi.physx.data.FormulasDBWrapper;
 import ru.altqi.physx.formulas.FormulaCard;
 
 public class FormulaCreationDialog extends DialogFragment {

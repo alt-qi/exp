@@ -1,4 +1,4 @@
-package ru.altqi.physx.db;
+package ru.altqi.physx;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,12 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ru.altqi.physx.R;
+import ru.altqi.physx.data.FormulasDBWrapper;
 import ru.altqi.physx.formulas.FormulaCard;
 import ru.noties.jlatexmath.JLatexMathView;
 

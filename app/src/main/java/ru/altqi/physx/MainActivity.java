@@ -3,6 +3,7 @@ package ru.altqi.physx;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import ru.altqi.physx.db.FormulaAdapter;
-import ru.altqi.physx.db.FormulasDBWrapper;
-import ru.altqi.physx.db.OpenHelper;
+import ru.altqi.physx.data.FormulasDBWrapper;
+import ru.altqi.physx.data.OpenHelper;
 import ru.altqi.physx.formulas.FormulaCard;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         resetDBButton.setOnClickListener(new ResetDBButtonOnClickListener());
         createFormulaButton.setOnClickListener(new CreateFormulaButtonOnClickListener());
+
+        System.out.println(Color.parseColor("#FFf44336"));
 
     }
 

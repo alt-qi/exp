@@ -14,6 +14,9 @@
     <color name="primaryDarkColor">#FF004c8c</color>
     <color name="primaryTextColor">#FFffffff</color>
 
+    <color name="strawberry">#FFf23f3f</color>
     <color name="orange_soda">#FFF2643F</color>
-    <color name="sun_soda">#FFf29b3f</color>
+    <color name="sunrise_soda">#FFf29b3f</color>
+    <color name="sun_soda">#FFf2da3f</color>
+    <color name="limy">#FF54d948</color>
 </resources>
