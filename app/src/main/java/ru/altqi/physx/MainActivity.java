@@ -2,19 +2,19 @@ package ru.altqi.physx;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import ru.altqi.physx.data.FormulasDBWrapper;
-import ru.altqi.physx.data.OpenHelper;
-import ru.altqi.physx.formulas.FormulaCard;
+import ru.altqi.physx.data.FormulaDao;
+import ru.altqi.physx.data.FormulaDatabase;
+import ru.altqi.physx.data.FormulaEntity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +22,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton createFormulaButton;
     RecyclerView recyclerView;
 
-    ArrayList<FormulaCard> formulaCards = new ArrayList<>();
-    OpenHelper dbHelper;
-    FormulasDBWrapper db;
+    FormulaDatabase db;
+    FormulaDao formulaDao;
     FormulaAdapter adapter;
 
     @Override
@@ -36,34 +35,35 @@ public class MainActivity extends AppCompatActivity {
         resetDBButton = findViewById(R.id.reset_db);
         createFormulaButton = findViewById(R.id.create_formula_button);
 
-        dbHelper = new OpenHelper(this);
-        db = new FormulasDBWrapper(dbHelper.getWritableDatabase());
+        db = Room.databaseBuilder(this, FormulaDatabase.class, "app")
+                .allowMainThreadQueries()
+                .build();
 
-        formulaCards = db.getFormulaCardsList();
+        formulaDao = db.formulaDao();
 
-        adapter = new FormulaAdapter(this, formulaCards, db);
+        List<FormulaEntity> formulaList = formulaDao.getAllFormulas();
+
+        adapter = new FormulaAdapter(this, formulaList, formulaDao);
         recyclerView.setAdapter(adapter);
 
-        resetDBButton.setOnClickListener(new ResetDBButtonOnClickListener());
+        resetDBButton.setOnClickListener(new ResetTablesButtonOnClickListener());
         createFormulaButton.setOnClickListener(new CreateFormulaButtonOnClickListener());
-
-        System.out.println(Color.parseColor("#FFf44336"));
 
     }
 
     class CreateFormulaButtonOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            FormulaCreationDialog dialog = new FormulaCreationDialog(adapter, db);
+            FormulaCreationDialog dialog = new FormulaCreationDialog(adapter, formulaDao);
             dialog.show(getSupportFragmentManager(), "fc");
         }
     }
 
-    class ResetDBButtonOnClickListener implements View.OnClickListener {
+    class ResetTablesButtonOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            dbHelper.onUpgrade(db.getDB(), 0, 0);
-            adapter.formulas = db.getFormulaCardsList();
+            formulaDao.clearAll();
+            adapter.formulas = formulaDao.getAllFormulas();
             adapter.notifyDataSetChanged();
         }
     }

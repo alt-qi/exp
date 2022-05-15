@@ -1,49 +1,45 @@
 package ru.altqi.physx;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import ru.altqi.physx.data.FormulasDBWrapper;
-import ru.altqi.physx.formulas.FormulaCard;
+import ru.altqi.physx.data.FormulaDao;
+import ru.altqi.physx.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
 
 public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final FormulasDBWrapper db;
-    public ArrayList<FormulaCard> formulas;
+    private final FormulaDao formulaDao;
+    public List<FormulaEntity> formulas;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView formulaNameView;
         final JLatexMathView formulaExpressionView;
         final ImageButton addToFavoritesButton;
-        final LinearLayout bgLayout;
 
         ViewHolder(View view){
             super(view);
             formulaNameView = view.findViewById(R.id.formula_name);
             formulaExpressionView = view.findViewById(R.id.formula_expression);
             addToFavoritesButton = view.findViewById(R.id.add_to_favorites);
-            bgLayout = view.findViewById(R.id.background_layout);
         }
     }
 
-    public FormulaAdapter(Context context, ArrayList<FormulaCard> formulas, FormulasDBWrapper db) {
+    public FormulaAdapter(Context context, List<FormulaEntity> formulas, FormulaDao formulaDao) {
         this.inflater = LayoutInflater.from(context);
         this.formulas = formulas;
-        this.db = db;
+        this.formulaDao = formulaDao;
     }
 
     @Override
@@ -53,23 +49,22 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(FormulaAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        FormulaCard formulaCard = formulas.get(position);
+    public void onBindViewHolder(FormulaAdapter.ViewHolder holder, int position) {
+        FormulaEntity formulaEntity = formulas.get(position);
 
-        holder.formulaExpressionView.setLatex(formulaCard.expression);
-        holder.formulaNameView.setText(formulaCard.name);
-        holder.addToFavoritesButton.setActivated(formulaCard.isFavorite);
-        holder.bgLayout.setBackgroundColor(formulaCard.bgColor);
+        holder.formulaExpressionView.setLatex(formulaEntity.expression);
+        holder.formulaNameView.setText(formulaEntity.name);
+        holder.addToFavoritesButton.setActivated(formulaEntity.isFavorite);
 
         holder.addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (view.isActivated()) {
-                    db.deleteFormulaCardFromFavorites(formulaCard.name);
+                    formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
                     view.setActivated(false);
                     Toast.makeText(inflater.getContext(), "Формула удалена из избранного.", Toast.LENGTH_SHORT).show();
                 } else {
-                    db.addFormulaCardToFavorites(formulaCard.name);
+                    formulaDao.addFormulaToFavorites(formulaEntity.name);
                     view.setActivated(true);
                     Toast.makeText(inflater.getContext(), "Формула добавлена в избранное!", Toast.LENGTH_SHORT).show();
                 }

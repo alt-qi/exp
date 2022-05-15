@@ -10,18 +10,18 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import ru.altqi.physx.data.FormulasDBWrapper;
-import ru.altqi.physx.formulas.FormulaCard;
+import ru.altqi.physx.data.FormulaDao;
+import ru.altqi.physx.data.FormulaEntity;
 
 public class FormulaCreationDialog extends DialogFragment {
 
     final FormulaAdapter adapter;
-    final FormulasDBWrapper db;
+    final FormulaDao formulaDao;
 
-    FormulaCreationDialog (FormulaAdapter adapter, FormulasDBWrapper db) {
+    FormulaCreationDialog (FormulaAdapter adapter, FormulaDao formulaDao) {
         super();
         this.adapter = adapter;
-        this.db = db;
+        this.formulaDao = formulaDao;
     }
 
     @Override
@@ -44,14 +44,21 @@ public class FormulaCreationDialog extends DialogFragment {
                 formulaNameInput = getDialog().findViewById(R.id.formula_name_input);
                 formulaExpressionInput = getDialog().findViewById(R.id.formula_expression_input);
 
-                FormulaCard formula = new FormulaCard(
-                        formulaNameInput.getText().toString(),
-                        formulaExpressionInput.getText().toString(),
-                        false, getResources().getColor(R.color.primaryLightColor)
-                );
+//                FormulaCard formula = new FormulaCard(
+//                        formulaNameInput.getText().toString(),
+//                        formulaExpressionInput.getText().toString(),
+//                        false, getResources().getColor(R.color.primaryLightColor)
+//                );
 
-                db.addFormulaCard(formula);
-                adapter.formulas.add(formula);
+                FormulaEntity formulaEntity = new FormulaEntity();
+
+                formulaEntity.name = formulaNameInput.getText().toString();
+                formulaEntity.expression = formulaExpressionInput.getText().toString();
+                formulaEntity.isFavorite = false;
+
+                formulaDao.addFormula(formulaEntity);
+
+                adapter.formulas.add(formulaEntity);
                 adapter.notifyItemInserted(adapter.getItemCount()-1);
 
                 Toast.makeText(getContext(), "Формула создана!", Toast.LENGTH_SHORT).show();

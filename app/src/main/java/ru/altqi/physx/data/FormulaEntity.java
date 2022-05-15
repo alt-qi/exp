@@ -1,12 +1,15 @@
-package ru.altqi.physx.data.rewrite;
+package ru.altqi.physx.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "formulas")
 public class FormulaEntity {
+
     @PrimaryKey
+    @NonNull
     public String name;
 
     public String expression;
