@@ -10,11 +10,14 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 import ru.altqi.physx.data.FormulaDao;
 import ru.altqi.physx.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
+
 
 public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHolder> {
 
@@ -28,7 +31,7 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
         final JLatexMathView formulaExpressionView;
         final ImageButton addToFavoritesButton;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             super(view);
             formulaNameView = view.findViewById(R.id.formula_name);
             formulaExpressionView = view.findViewById(R.id.formula_expression);
@@ -59,15 +62,18 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
         holder.addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.isActivated()) {
+                MainActivity activity = (MainActivity) inflater.getContext();
+
+                if (!view.isActivated()) {
                     formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
-                    view.setActivated(false);
-                    Toast.makeText(inflater.getContext(), "Формула удалена из избранного.", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(activity.findViewById(R.id.create_formula_button),
+                            "Формула добавлена в избранное.", Snackbar.LENGTH_SHORT).show();
                 } else {
                     formulaDao.addFormulaToFavorites(formulaEntity.name);
-                    view.setActivated(true);
-                    Toast.makeText(inflater.getContext(), "Формула добавлена в избранное!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(activity.findViewById(R.id.create_formula_button),
+                            "Формула удалена из избранного.", Snackbar.LENGTH_SHORT).show();
                 }
+                view.setActivated(!view.isActivated());
             }
         });
     }
