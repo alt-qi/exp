@@ -65,11 +65,11 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
                 MainActivity activity = (MainActivity) inflater.getContext();
 
                 if (!view.isActivated()) {
-                    formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
+                    formulaDao.addFormulaToFavorites(formulaEntity.name);
                     Snackbar.make(activity.findViewById(R.id.create_formula_button),
                             "Формула добавлена в избранное.", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    formulaDao.addFormulaToFavorites(formulaEntity.name);
+                    formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
                     Snackbar.make(activity.findViewById(R.id.create_formula_button),
                             "Формула удалена из избранного.", Snackbar.LENGTH_SHORT).show();
                 }
