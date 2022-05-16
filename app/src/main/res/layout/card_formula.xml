@@ -62,7 +62,7 @@
                 android:layout_gravity="bottom|end"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
-                android:src="@drawable/star_button" />
+                android:src="@drawable/ic_checkable_star" />
 
         </LinearLayout>
 

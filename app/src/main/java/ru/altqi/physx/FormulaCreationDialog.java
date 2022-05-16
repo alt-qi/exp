@@ -15,12 +15,17 @@ import ru.altqi.physx.data.FormulaEntity;
 
 public class FormulaCreationDialog extends DialogFragment {
 
-    final FormulaAdapter adapter;
+//    final FormulaAdapter adapter;
     final FormulaDao formulaDao;
 
-    FormulaCreationDialog(FormulaAdapter adapter, FormulaDao formulaDao) {
+//    FormulaCreationDialog(FormulaAdapter adapter, FormulaDao formulaDao) {
+//        super();
+//        this.adapter = adapter;
+//        this.formulaDao = formulaDao;
+//    }
+
+    FormulaCreationDialog(FormulaDao formulaDao) {
         super();
-        this.adapter = adapter;
         this.formulaDao = formulaDao;
     }
 
@@ -30,7 +35,7 @@ public class FormulaCreationDialog extends DialogFragment {
 
         return builder
                 .setTitle("Создание формулы")
-                .setView(R.layout.formula_creation_dialog)
+                .setView(R.layout.dialog_formula_creation)
                 .setNegativeButton("Отмена", null)
                 .setPositiveButton("Создать", new CreateFormulaButtonOnClickListener())
                 .create();
@@ -53,10 +58,10 @@ public class FormulaCreationDialog extends DialogFragment {
 
                 formulaDao.addFormula(formulaEntity);
 
-                adapter.formulas.add(formulaEntity);
-                adapter.notifyItemInserted(adapter.getItemCount() - 1);
+//                adapter.formulas.add(formulaEntity);
+//                adapter.notifyItemInserted(adapter.getItemCount() - 1);
 
-                Snackbar.make(((MainActivity) getActivity()).findViewById(R.id.create_formula_button),
+                Snackbar.make(((MainActivity) getActivity()).findViewById(R.id.fragment_container),
                         "Формула создана!", Snackbar.LENGTH_SHORT).show();
             }
         }

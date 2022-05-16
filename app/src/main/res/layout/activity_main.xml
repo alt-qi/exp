@@ -4,36 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#fff8f9"
+    android:id="@+id/fragment_container"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/reset_db"
+<!--    <Button-->
+<!--        android:id="@+id/reset_db"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="6dp"-->
+<!--        android:layout_marginEnd="6dp"-->
+<!--        android:text="СБРОС БД" />-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        android:text="СБРОС БД" />
+        android:background="@drawable/round_corners"
+        android:elevation="2dp"
+        android:layout_margin="30dp"
+        app:menu="@menu/navigation_menu"
+        app:elevation="5dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="30dp"
+        />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/formulas_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@id/reset_db"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/create_formula_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@id/reset_db"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        app:tint="@color/white"
-        app:backgroundTint="@color/primaryColor"
-        app:fabSize="auto"/>
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/create_formula_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/ic_add"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_above="@id/reset_db"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@color/primaryColor"-->
+<!--        app:fabSize="auto"/>-->
 
 </RelativeLayout>

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +46,7 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
     @Override
     public FormulaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.formula_card, parent, false);
+        View view = inflater.inflate(R.layout.card_formula, parent, false);
         return new ViewHolder(view);
     }
 
@@ -66,11 +65,11 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
                 if (!view.isActivated()) {
                     formulaDao.addFormulaToFavorites(formulaEntity.name);
-                    Snackbar.make(activity.findViewById(R.id.create_formula_button),
+                    Snackbar.make(activity.findViewById(R.id.fragment_container),
                             "Формула добавлена в избранное.", Snackbar.LENGTH_SHORT).show();
                 } else {
                     formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
-                    Snackbar.make(activity.findViewById(R.id.create_formula_button),
+                    Snackbar.make(activity.findViewById(R.id.fragment_container),
                             "Формула удалена из избранного.", Snackbar.LENGTH_SHORT).show();
                 }
                 view.setActivated(!view.isActivated());
