@@ -6,13 +6,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import ru.altqi.physx.FormulaListViewModel;
 import ru.altqi.physx.MainActivity;
 import ru.altqi.physx.R;
 import ru.altqi.physx.data.FormulaDao;
+import ru.altqi.physx.data.FormulaDatabase;
 import ru.altqi.physx.data.FormulaEntity;
 
 public class FormulaCreationDialog extends DialogFragment {
@@ -26,9 +29,9 @@ public class FormulaCreationDialog extends DialogFragment {
 //        this.formulaDao = formulaDao;
 //    }
 
-    public FormulaCreationDialog(FormulaDao formulaDao) {
+    public FormulaCreationDialog() {
         super();
-        this.formulaDao = formulaDao;
+        this.formulaDao = FormulaDatabase.getDatabase(getActivity()).formulaDao();
     }
 
     @Override
@@ -39,11 +42,19 @@ public class FormulaCreationDialog extends DialogFragment {
                 .setTitle("Создание формулы")
                 .setView(R.layout.dialog_formula_creation)
                 .setNegativeButton("Отмена", null)
-                .setPositiveButton("Создать", new CreateFormulaButtonOnClickListener())
+                .setPositiveButton("Создать", new CreateFormulaButtonOnClickListener(
+                        new ViewModelProvider(getActivity()).get(FormulaListViewModel.class)
+                ))
                 .create();
     }
 
     class CreateFormulaButtonOnClickListener implements DialogInterface.OnClickListener {
+        FormulaListViewModel viewModel;
+
+        CreateFormulaButtonOnClickListener(FormulaListViewModel viewModel) {
+            this.viewModel = viewModel;
+        }
+
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
             if (i == DialogInterface.BUTTON_POSITIVE) {
@@ -59,9 +70,7 @@ public class FormulaCreationDialog extends DialogFragment {
                 formulaEntity.isFavorite = false;
 
                 formulaDao.addFormula(formulaEntity);
-
-//                adapter.formulas.add(formulaEntity);
-//                adapter.notifyItemInserted(adapter.getItemCount() - 1);
+                viewModel.updateFormulaList();
 
                 Snackbar.make(((MainActivity) getActivity()).findViewById(R.id.nav_host_fragment),
                         "Формула создана!", Snackbar.LENGTH_SHORT).show();

@@ -17,11 +17,16 @@
         android:label="Избранные формулы"
         tools:layout="@layout/fragment_uncompleted" />
 
-    <fragment
+<!--    <fragment-->
+<!--        android:id="@+id/nav_add_formula"-->
+<!--        android:name="ru.altqi.physx.ui.UncompletedFragment"-->
+<!--        android:label="Избранные формулы"-->
+<!--        tools:layout="@layout/fragment_uncompleted" />-->
+
+    <dialog
         android:id="@+id/nav_add_formula"
-        android:name="ru.altqi.physx.ui.UncompletedFragment"
-        android:label="Избранные формулы"
-        tools:layout="@layout/fragment_uncompleted" />
+        android:name="ru.altqi.physx.ui.FormulaCreationDialog"
+        tools:layout="@layout/dialog_formula_creation" />
 
     <fragment
         android:id="@+id/nav_settings"
