@@ -1,4 +1,4 @@
-package ru.altqi.physx;
+package ru.altqi.physx.ui;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import ru.altqi.physx.MainActivity;
+import ru.altqi.physx.R;
 import ru.altqi.physx.data.FormulaDao;
 import ru.altqi.physx.data.FormulaEntity;
 
@@ -24,7 +26,7 @@ public class FormulaCreationDialog extends DialogFragment {
 //        this.formulaDao = formulaDao;
 //    }
 
-    FormulaCreationDialog(FormulaDao formulaDao) {
+    public FormulaCreationDialog(FormulaDao formulaDao) {
         super();
         this.formulaDao = formulaDao;
     }
@@ -61,7 +63,7 @@ public class FormulaCreationDialog extends DialogFragment {
 //                adapter.formulas.add(formulaEntity);
 //                adapter.notifyItemInserted(adapter.getItemCount() - 1);
 
-                Snackbar.make(((MainActivity) getActivity()).findViewById(R.id.fragment_container),
+                Snackbar.make(((MainActivity) getActivity()).findViewById(R.id.nav_host_fragment),
                         "Формула создана!", Snackbar.LENGTH_SHORT).show();
             }
         }

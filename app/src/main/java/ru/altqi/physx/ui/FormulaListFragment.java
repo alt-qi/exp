@@ -1,19 +1,19 @@
-package ru.altqi.physx;
+package ru.altqi.physx.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import ru.altqi.physx.FormulaListViewModel;
+import ru.altqi.physx.R;
 import ru.altqi.physx.data.FormulaDao;
 import ru.altqi.physx.data.FormulaDatabase;
 import ru.altqi.physx.data.FormulaEntity;
@@ -21,21 +21,11 @@ import ru.altqi.physx.data.FormulaEntity;
 
 public class FormulaListFragment extends Fragment {
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
-
     RecyclerView recyclerView;
-
-    FormulaDatabase db;
-    FormulaDao formulaDao;
     FormulaAdapter adapter;
 
-    FormulaListFragment(FormulaDatabase db) {
-        this.db = db;
-        formulaDao = db.formulaDao();
+    public FormulaListFragment() {
+
     }
 
     @Override
@@ -43,16 +33,22 @@ public class FormulaListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_formula_list, container, false);
+        FormulaListViewModel viewModel = new ViewModelProvider(getActivity()).get(FormulaListViewModel.class);
 
-        List<FormulaEntity> formulaList = formulaDao.getAllFormulas();
-        adapter = new FormulaAdapter(inflater.getContext(), formulaList, formulaDao);
+        adapter = new FormulaAdapter(inflater.getContext(), viewModel.liveData.getValue(),
+                FormulaDatabase.getDatabase(getActivity()).formulaDao());
 
         recyclerView = view.findViewById(R.id.formulas_list);
         recyclerView.setAdapter(adapter);
 
-        return view;
+        viewModel.liveData.observe(getViewLifecycleOwner(), new Observer<List<FormulaEntity>>() {
+            @Override
+            public void onChanged(List<FormulaEntity> formulas) {
+                adapter.formulas = formulas;
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-//        resetDBButton.setOnClickListener(new ResetTablesButtonOnClickListener());
-//        createFormulaButton.setOnClickListener(new CreateFormulaButtonOnClickListener());
+        return view;
     }
 }

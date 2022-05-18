@@ -25,9 +25,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-ui:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment:2.4.2'
     def room_version = "2.4.2"
 
     implementation "androidx.room:room-runtime:$room_version"
@@ -36,7 +42,6 @@ dependencies {
     implementation 'ru.noties:jlatexmath-android:0.2.0'
     implementation 'ru.noties:jlatexmath-android-font-cyrillic:0.2.0'
     implementation 'ru.noties:jlatexmath-android-font-greek:0.2.0'
-
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'

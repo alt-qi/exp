@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff8f9"
-    android:id="@+id/fragment_container"
     tools:context=".MainActivity">
 
 <!--    <Button-->
@@ -17,8 +15,17 @@
 <!--        android:layout_marginEnd="6dp"-->
 <!--        android:text="СБРОС БД" />-->
 
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/app_navigation"
+        />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_bar"
+        android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -28,8 +35,7 @@
         app:menu="@menu/navigation_menu"
         app:elevation="5dp"
         app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="30dp"
-        />
+        app:itemIconSize="30dp" />
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/create_formula_button"-->

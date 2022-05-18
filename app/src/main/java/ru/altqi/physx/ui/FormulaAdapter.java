@@ -1,4 +1,4 @@
-package ru.altqi.physx;
+package ru.altqi.physx.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+import ru.altqi.physx.MainActivity;
+import ru.altqi.physx.R;
 import ru.altqi.physx.data.FormulaDao;
 import ru.altqi.physx.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
@@ -65,11 +67,11 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
                 if (!view.isActivated()) {
                     formulaDao.addFormulaToFavorites(formulaEntity.name);
-                    Snackbar.make(activity.findViewById(R.id.fragment_container),
+                    Snackbar.make(activity.findViewById(R.id.nav_host_fragment),
                             "Формула добавлена в избранное.", Snackbar.LENGTH_SHORT).show();
                 } else {
                     formulaDao.deleteFormulaFromFavorites(formulaEntity.name);
-                    Snackbar.make(activity.findViewById(R.id.fragment_container),
+                    Snackbar.make(activity.findViewById(R.id.nav_host_fragment),
                             "Формула удалена из избранного.", Snackbar.LENGTH_SHORT).show();
                 }
                 view.setActivated(!view.isActivated());
