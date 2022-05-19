@@ -5,12 +5,11 @@
     android:layout_height="wrap_content"
     style="@style/formula_card_style">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/background_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primaryColor"
-        android:orientation="vertical">
+        android:background="@color/primaryColor">
 
         <TextView
             android:id="@+id/formula_name"
@@ -19,53 +18,40 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_alignParentTop="true"
             android:fontFamily="@font/roboto_bold"
             android:text="Название формулы"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <LinearLayout
+        <ru.noties.jlatexmath.JLatexMathView
+            android:id="@+id/formula_expression"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/formula_name"
+            android:layout_toStartOf="@id/add_to_favorites"
             android:layout_marginTop="7dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginStart="15dp"
+            android:layout_alignParentStart="true"
+            android:background="#00FFFFFF"
+            app:jlmv_textColor="@color/white"
+            app:jlmv_alignVertical="center"
+            app:jlmv_alignHorizontal="start"
+            app:jlmv_textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/add_to_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/formula_expression"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="-1dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_checkable_star" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/formula_expression"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:fontFamily="monospace"-->
-<!--                android:text="Выражение"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="24sp" />-->
-
-            <ru.noties.jlatexmath.JLatexMathView
-                android:id="@+id/formula_expression"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                app:jlmv_textColor="@color/white"
-                app:jlmv_alignVertical="center"
-                app:jlmv_alignHorizontal="start"
-                app:jlmv_textSize="25sp" />
-
-            <ImageButton
-                android:id="@+id/add_to_favorites"
-                android:layout_weight="1"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_checkable_star" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>
