@@ -19,6 +19,9 @@ public interface FormulaDao {
     @Delete
     void deleteFormula(FormulaEntity formula);
 
+    @Query("DELETE FROM formulas WHERE name = :formulaName;")
+    void deleteFormulaByName(String formulaName);
+
     @Query("DELETE FROM formulas;")
     void clearAll();
 

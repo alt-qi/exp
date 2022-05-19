@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/formula_card_style">
+    style="@style/formula_card_style"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/background_layout"
@@ -12,7 +14,7 @@
         android:background="@color/primaryColor">
 
         <TextView
-            android:id="@+id/formula_name"
+            android:id="@+id/formula_name_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -25,11 +27,11 @@
             android:textSize="18sp" />
 
         <ru.noties.jlatexmath.JLatexMathView
-            android:id="@+id/formula_expression"
+            android:id="@+id/formula_expression_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/formula_name"
-            android:layout_toStartOf="@id/add_to_favorites"
+            android:layout_below="@id/formula_name_view"
+            android:layout_toStartOf="@id/add_to_favorites_btn"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="15dp"
             android:layout_marginStart="15dp"
@@ -41,10 +43,10 @@
             app:jlmv_textSize="25sp" />
 
         <ImageButton
-            android:id="@+id/add_to_favorites"
+            android:id="@+id/add_to_favorites_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/formula_expression"
+            android:layout_alignBottom="@id/formula_expression_view"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="-1dp"

@@ -44,8 +44,13 @@ public class FormulaListFragment extends Fragment {
         viewModel.liveData.observe(getViewLifecycleOwner(), new Observer<List<FormulaEntity>>() {
             @Override
             public void onChanged(List<FormulaEntity> formulas) {
+                int old_size = adapter.formulas.size();
                 adapter.formulas = formulas;
-                adapter.notifyDataSetChanged();
+
+                if (formulas.size() - old_size == 1)
+                    adapter.notifyItemInserted(adapter.formulas.size() - 1);
+                else
+                    adapter.notifyDataSetChanged();
             }
         });
 
