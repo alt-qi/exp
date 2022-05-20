@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ru.altqi.physx.FormulaAdapter;
 import ru.altqi.physx.FormulaListViewModel;
 import ru.altqi.physx.R;
-import ru.altqi.physx.data.FormulaDao;
 import ru.altqi.physx.data.FormulaDatabase;
 import ru.altqi.physx.data.FormulaEntity;
 
@@ -35,11 +35,13 @@ public class FormulaListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_formula_list, container, false);
         FormulaListViewModel viewModel = new ViewModelProvider(getActivity()).get(FormulaListViewModel.class);
 
-        adapter = new FormulaAdapter(inflater.getContext(), viewModel.liveData.getValue(),
+        adapter = new FormulaAdapter(inflater.getContext(),
                 FormulaDatabase.getDatabase(getActivity()).formulaDao());
 
         recyclerView = view.findViewById(R.id.formulas_list);
         recyclerView.setAdapter(adapter);
+
+        viewModel.updateFormulaList();
 
         viewModel.liveData.observe(getViewLifecycleOwner(), new Observer<List<FormulaEntity>>() {
             @Override
@@ -47,7 +49,7 @@ public class FormulaListFragment extends Fragment {
                 int old_size = adapter.formulas.size();
                 adapter.formulas = formulas;
 
-                if (formulas.size() - old_size == 1)
+                if (formulas.size() - old_size == 1) // костыль
                     adapter.notifyItemInserted(adapter.formulas.size() - 1);
                 else
                     adapter.notifyDataSetChanged();

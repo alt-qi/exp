@@ -13,15 +13,9 @@
 
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="ru.altqi.physx.ui.UncompletedFragment"
+        android:name="ru.altqi.physx.ui.FavoriteFormulaListFragment"
         android:label="Избранные формулы"
-        tools:layout="@layout/fragment_uncompleted" />
-
-<!--    <fragment-->
-<!--        android:id="@+id/nav_add_formula"-->
-<!--        android:name="ru.altqi.physx.ui.UncompletedFragment"-->
-<!--        android:label="Избранные формулы"-->
-<!--        tools:layout="@layout/fragment_uncompleted" />-->
+        tools:layout="@layout/fragment_favorite_formula_list" />
 
     <dialog
         android:id="@+id/nav_add_formula"

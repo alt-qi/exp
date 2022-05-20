@@ -28,6 +28,8 @@
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_fragment.xml" value="0.25" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/formula_list.xml" value="0.371875" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_blank.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_favorite_formula_list.xml" value="0.18085106382978725" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_favorite_formulas_list.xml" value="0.371875" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_formula_list.xml" value="0.371875" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/fragment_uncompleted.xml" value="0.371875" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/layout/relaitive_formula_card.xml" value="0.5" />
@@ -36,6 +38,8 @@
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/menu/sorting_mode_menu.xml" value="0.33" />
         <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/mipmap-anydpi-v26/star_outlined.xml" value="0.1325" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/xml/preferences.xml" value="0.29925187032418954" />
+        <entry key="..\:/Users/alt-qi/AndroidStudioProjects/physx/app/src/main/res/xml/settings_screen.xml" value="0.371875" />
       </map>
     </option>
   </component>

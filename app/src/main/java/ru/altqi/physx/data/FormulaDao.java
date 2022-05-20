@@ -14,6 +14,9 @@ public interface FormulaDao {
     List<FormulaEntity> getAllFormulas();
 
     @Insert
+    void insertAllFormulas(FormulaEntity... dataEntities);
+
+    @Insert
     void addFormula(FormulaEntity formula);
 
     @Delete
@@ -23,7 +26,10 @@ public interface FormulaDao {
     void deleteFormulaByName(String formulaName);
 
     @Query("DELETE FROM formulas;")
-    void clearAll();
+    void deleteAllFormulas();
+
+    @Query("SELECT * FROM formulas WHERE is_favorite = 1;")
+    List<FormulaEntity> getFavoriteFormulas();
 
     @Query("UPDATE formulas SET is_favorite = 1 WHERE name = :formulaName;")
     void addFormulaToFavorites(String formulaName);
