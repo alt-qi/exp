@@ -1,4 +1,4 @@
-package ru.altqi.physx;
+package ru.altqi.exp;
 
 import android.content.Context;
 

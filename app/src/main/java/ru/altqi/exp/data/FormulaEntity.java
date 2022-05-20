@@ -1,4 +1,4 @@
-package ru.altqi.physx.data;
+package ru.altqi.exp.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

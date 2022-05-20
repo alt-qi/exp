@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="ru.altqi.physx.ui.FormulaListFragment"
+        android:name="ru.altqi.exp.ui.FormulaListFragment"
         android:label="Список формул"
         tools:layout="@layout/fragment_formula_list" />
 
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="ru.altqi.physx.ui.FavoriteFormulaListFragment"
+        android:name="ru.altqi.exp.ui.FavoriteFormulaListFragment"
         android:label="Избранные формулы"
         tools:layout="@layout/fragment_favorite_formula_list" />
 
     <dialog
         android:id="@+id/nav_add_formula"
-        android:name="ru.altqi.physx.ui.FormulaCreationDialog"
+        android:name="ru.altqi.exp.ui.FormulaCreationDialog"
         tools:layout="@layout/dialog_formula_creation" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="ru.altqi.physx.ui.UncompletedFragment"
+        android:name="ru.altqi.exp.ui.UncompletedFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_uncompleted" />
 

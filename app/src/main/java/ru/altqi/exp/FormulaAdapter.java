@@ -1,4 +1,4 @@
-package ru.altqi.physx;
+package ru.altqi.exp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,20 +13,21 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import ru.altqi.physx.data.FormulaDao;
-import ru.altqi.physx.data.FormulaEntity;
+import ru.altqi.exp.data.FormulaDao;
+import ru.altqi.exp.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
 
-public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormulaAdapter.ViewHolder> {
+
+public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final FormulaDao formulaDao;
-    public List<FormulaEntity> favoriteFormulas;
+    public List<FormulaEntity> formulas;
 
-    public FavoriteFormulaAdapter(Context context, FormulaDao formulaDao) {
+    public FormulaAdapter(Context context, FormulaDao formulaDao) {
         this.inflater = LayoutInflater.from(context);
         this.formulaDao = formulaDao;
-        this.favoriteFormulas = formulaDao.getFavoriteFormulas();
+        this.formulas = formulaDao.getAllFormulas();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,7 +35,6 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
         final TextView formulaNameView;
         final JLatexMathView formulaExpressionView;
         final ImageButton addToFavoritesButton;
-
 
         ViewHolder(View view) {
             super(view);
@@ -46,48 +46,56 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
             View navHostFragmentView = ((MainActivity) inflater.getContext()).findViewById(R.id.nav_host_fragment);
 
             addToFavoritesButton.setOnClickListener(view1 -> {
-                formulaDao.deleteFormulaFromFavorites(formulaNameView.getText().toString());
-                view1.setActivated(!view1.isActivated());
-
-                for (int i = 0; i < favoriteFormulas.size(); i++) {
-                    if (favoriteFormulas.get(i).name.equals(formulaNameView.getText().toString())) {
-                        favoriteFormulas.remove(i);
-                        notifyItemRemoved(i);
-                        Snackbar.make(navHostFragmentView, "Формула удалена из избранного.",
-                                Snackbar.LENGTH_SHORT).show();
-                        break;
-                    }
+                if (!view1.isActivated()) {
+                    formulaDao.addFormulaToFavorites(formulaNameView.getText().toString());
+                    Snackbar.make(navHostFragmentView,
+                            "Формула добавлена в избранное.", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    formulaDao.deleteFormulaFromFavorites(formulaNameView.getText().toString());
+                    Snackbar.make(navHostFragmentView,
+                            "Формула удалена из избранного.", Snackbar.LENGTH_SHORT).show();
                 }
+                view1.setActivated(!view1.isActivated());
             });
 
             view.setOnLongClickListener(view1 -> {
                 deleteFormulaByName(formulaNameView.getText().toString());
-                Snackbar.make(navHostFragmentView, "Формула удалена.", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(navHostFragmentView, "Формула удалёна.", Snackbar.LENGTH_SHORT).show();
                 return false;
             });
         }
 
         void deleteFormulaByName(String formulaName) {
             formulaDao.deleteFormulaByName(formulaName);
-            for (int i = 0; i < favoriteFormulas.size(); i++) {
-                if (favoriteFormulas.get(i).name.equals(formulaName)) {
-                    favoriteFormulas.remove(i);
-                    notifyItemRemoved(i);
-                    return;
+            int formulaIndex = getFormulaIndexByName(formulaName);
+            deleteFormulaFromRecyclerView(formulaIndex);
+        }
+
+        int getFormulaIndexByName(String formulaName) {
+            for (int i = 0; i < formulas.size(); i++) {
+                if (formulas.get(i).name.equals(formulaName)) {
+                    return i;
                 }
             }
+            return 0;
         }
+
+        void deleteFormulaFromRecyclerView(int formulaIndex) {
+            formulas.remove(formulaIndex);
+            notifyItemRemoved(formulaIndex);
+        }
+
     }
 
     @Override
-    public FavoriteFormulaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FormulaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.card_formula, parent, false);
-        return new FavoriteFormulaAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FavoriteFormulaAdapter.ViewHolder holder, int position) {
-        FormulaEntity formulaEntity = favoriteFormulas.get(position);
+    public void onBindViewHolder(FormulaAdapter.ViewHolder holder, int position) {
+        FormulaEntity formulaEntity = formulas.get(position);
 
         holder.formulaExpressionView.setLatex(formulaEntity.expression);
         holder.formulaNameView.setText(formulaEntity.name);
@@ -96,6 +104,6 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
 
     @Override
     public int getItemCount() {
-        return favoriteFormulas.size();
+        return formulas.size();
     }
 }

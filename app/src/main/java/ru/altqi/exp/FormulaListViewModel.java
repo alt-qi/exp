@@ -1,4 +1,4 @@
-package ru.altqi.physx;
+package ru.altqi.exp;
 
 import android.app.Application;
 
@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import ru.altqi.physx.data.FormulaDatabase;
-import ru.altqi.physx.data.FormulaEntity;
+import ru.altqi.exp.data.FormulaDatabase;
+import ru.altqi.exp.data.FormulaEntity;
 
 public class FormulaListViewModel extends AndroidViewModel {
 

@@ -1,4 +1,4 @@
-package ru.altqi.physx.ui;
+package ru.altqi.exp.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,17 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
-import ru.altqi.physx.FormulaAdapter;
-import ru.altqi.physx.FormulaListViewModel;
-import ru.altqi.physx.R;
-import ru.altqi.physx.data.FormulaDatabase;
-import ru.altqi.physx.data.FormulaEntity;
+import ru.altqi.exp.FormulaAdapter;
+import ru.altqi.exp.FormulaListViewModel;
+import ru.altqi.exp.R;
+import ru.altqi.exp.data.FormulaDatabase;
 
 
 public class FormulaListFragment extends Fragment {
@@ -43,17 +39,14 @@ public class FormulaListFragment extends Fragment {
 
         viewModel.updateFormulaList();
 
-        viewModel.liveData.observe(getViewLifecycleOwner(), new Observer<List<FormulaEntity>>() {
-            @Override
-            public void onChanged(List<FormulaEntity> formulas) {
-                int old_size = adapter.formulas.size();
-                adapter.formulas = formulas;
+        viewModel.liveData.observe(getViewLifecycleOwner(), formulas -> {
+            int old_size = adapter.formulas.size();
+            adapter.formulas = formulas;
 
-                if (formulas.size() - old_size == 1) // костыль
-                    adapter.notifyItemInserted(adapter.formulas.size() - 1);
-                else
-                    adapter.notifyDataSetChanged();
-            }
+            if (formulas.size() - old_size == 1) // костыль
+                adapter.notifyItemInserted(adapter.formulas.size() - 1);
+            else
+                adapter.notifyDataSetChanged();
         });
 
         return view;

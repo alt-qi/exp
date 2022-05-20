@@ -1,4 +1,4 @@
-package ru.altqi.physx.ui;
+package ru.altqi.exp.ui;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-import ru.altqi.physx.FormulaListViewModel;
-import ru.altqi.physx.MainActivity;
-import ru.altqi.physx.R;
-import ru.altqi.physx.data.FormulaDao;
-import ru.altqi.physx.data.FormulaDatabase;
-import ru.altqi.physx.data.FormulaEntity;
+import ru.altqi.exp.FormulaListViewModel;
+import ru.altqi.exp.MainActivity;
+import ru.altqi.exp.R;
+import ru.altqi.exp.data.FormulaDao;
+import ru.altqi.exp.data.FormulaDatabase;
+import ru.altqi.exp.data.FormulaEntity;
 
 public class FormulaCreationDialog extends DialogFragment {
 

@@ -1,9 +1,7 @@
-package ru.altqi.physx;
+package ru.altqi.exp;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -11,9 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-import ru.altqi.physx.databinding.ActivityMainBinding;
+import ru.altqi.exp.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {

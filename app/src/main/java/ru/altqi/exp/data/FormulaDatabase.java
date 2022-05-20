@@ -1,4 +1,4 @@
-package ru.altqi.physx.data;
+package ru.altqi.exp.data;
 
 import android.content.Context;
 
@@ -8,14 +8,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.Executors;
 
-import ru.altqi.physx.R;
+import ru.altqi.exp.R;
 
 @Database(entities = {FormulaEntity.class}, version = 1)
 public abstract class FormulaDatabase extends RoomDatabase {

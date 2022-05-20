@@ -1,4 +1,4 @@
-package ru.altqi.physx.ui;
+package ru.altqi.exp.ui;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ru.altqi.physx.R;
+import ru.altqi.exp.R;
 
 
 public class UncompletedFragment extends Fragment {
