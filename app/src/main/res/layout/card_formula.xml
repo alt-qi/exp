@@ -21,7 +21,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_alignParentTop="true"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/monsterrat_medium"
             android:text="Название формулы"
             android:textColor="@color/white"
             android:textSize="18sp" />

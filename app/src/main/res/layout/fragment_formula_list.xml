@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/monsterrat_bold"
                 android:gravity="center_vertical"
                 android:text="Все формулы"
                 android:textColor="@color/gray"
