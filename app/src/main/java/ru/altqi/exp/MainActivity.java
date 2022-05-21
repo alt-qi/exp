@@ -1,6 +1,7 @@
 package ru.altqi.exp;
 
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -9,8 +10,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import ru.altqi.exp.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,12 +23,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-            R.id.nav_home, R.id.nav_favorites, R.id.nav_add_formula, R.id.nav_settings
-        ).build();
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//            R.id.nav_home, R.id.nav_favorites, R.id.nav_add_formula, R.id.nav_settings
+//        ).build();
+//
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 }
