@@ -28,17 +28,4 @@
         app:labelVisibilityMode="unlabeled"
         app:itemIconSize="30dp" />
 
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/create_formula_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/ic_add"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_above="@id/reset_db"-->
-<!--        android:layout_marginBottom="20dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:tint="@color/white"-->
-<!--        app:backgroundTint="@color/primaryColor"-->
-<!--        app:fabSize="auto"/>-->
-
 </RelativeLayout>

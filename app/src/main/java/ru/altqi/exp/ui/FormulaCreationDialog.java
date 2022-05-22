@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.scilab.forge.jlatexmath.ParseException;
+
 import ru.altqi.exp.FormulaListViewModel;
 import ru.altqi.exp.R;
 import ru.altqi.exp.data.FormulaDao;
@@ -28,15 +30,21 @@ public class FormulaCreationDialog extends DialogFragment {
     TextInputEditText formulaNameInput, formulaExpressionInput;
 
     Handler handler = new Handler();
-    long showPreviewDelay = 400; // время, которое нужно будет подождать после завершения ввода,
+    long showPreviewDelay = 600; // время, которое нужно будет подождать после завершения ввода,
                                  // чтобы отобразился предпросмотр формулы
 
     public FormulaCreationDialog() {
         this.formulaDao = FormulaDatabase.getDatabase(getActivity()).formulaDao();
     }
 
-    final private Runnable expressionInputFinishChecker = () ->
+    final private Runnable expressionInputFinishChecker = () -> {
+        try {
             formulaExpressionPreview.setLatex(formulaExpressionInput.getText().toString());
+        } catch (ParseException e) {
+            // если произошла ошибка при обработке TeX-выражения, то тогда
+            // просто игнорируем её и не обновляем предпросмотр
+        }
+    };
 
     private final TextWatcher expressionInputWatcher = new TextWatcher() {
         @Override
