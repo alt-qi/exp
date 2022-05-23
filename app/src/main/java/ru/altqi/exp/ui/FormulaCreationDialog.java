@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -28,6 +29,7 @@ public class FormulaCreationDialog extends DialogFragment {
     final FormulaDao formulaDao;
     JLatexMathView formulaExpressionPreview;
     TextInputEditText formulaNameInput, formulaExpressionInput;
+    Button positiveButton;
 
     Handler handler = new Handler();
     long showPreviewDelay = 600; // время, которое нужно будет подождать после завершения ввода,
@@ -46,7 +48,7 @@ public class FormulaCreationDialog extends DialogFragment {
         }
     };
 
-    private final TextWatcher expressionInputWatcher = new TextWatcher() {
+    private final TextWatcher formulaPreviewWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -65,6 +67,23 @@ public class FormulaCreationDialog extends DialogFragment {
         }
     };
 
+    private final TextWatcher formulaValidityWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (formulaNameInput.getText().length() > 0 &&
+                    formulaExpressionInput.getText().length() > 0)
+                positiveButton.setEnabled(true);
+            else
+                positiveButton.setEnabled(false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {}
+    };
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -80,12 +99,18 @@ public class FormulaCreationDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
 
+        positiveButton = ((AlertDialog) getDialog()).getButton(Dialog.BUTTON_POSITIVE);
+        positiveButton.setEnabled(false);
+
         formulaExpressionPreview = getDialog().findViewById(R.id.formula_expression_preview);
         formulaNameInput = getDialog().findViewById(R.id.formula_name_input);
         formulaExpressionInput = getDialog().findViewById(R.id.formula_expression_input);
 
         formulaExpressionPreview.setLatex("");
-        formulaExpressionInput.addTextChangedListener(expressionInputWatcher);
+        formulaExpressionInput.addTextChangedListener(formulaPreviewWatcher);
+
+        formulaExpressionInput.addTextChangedListener(formulaValidityWatcher);
+        formulaNameInput.addTextChangedListener(formulaValidityWatcher);
     }
 
     class CreateFormulaButtonOnClickListener implements DialogInterface.OnClickListener {
