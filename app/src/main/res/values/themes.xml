@@ -13,8 +13,7 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-
+        <item name="autoCompleteTextViewStyle">@style/search_view_style</item>
         <!-- Customize your theme here. -->
-
     </style>
 </resources>

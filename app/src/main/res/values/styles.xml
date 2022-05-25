@@ -14,5 +14,9 @@
         <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">30sp</item>
     </style>
+    
+    <style name="search_view_style" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
 
 </resources>
