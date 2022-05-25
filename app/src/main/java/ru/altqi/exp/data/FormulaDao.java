@@ -1,5 +1,6 @@
 package ru.altqi.exp.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -10,7 +11,10 @@ import java.util.List;
 @Dao
 public interface FormulaDao {
     @Query("SELECT * FROM formulas;")
-    List<FormulaEntity> getAllFormulas();
+    List<FormulaEntity> getFormulaList();
+
+    @Query("SELECT * FROM formulas;")
+    LiveData<List<FormulaEntity>> getFormulasLiveData();
 
     @Insert
     void insertAllFormulas(FormulaEntity... dataEntities);
@@ -18,11 +22,8 @@ public interface FormulaDao {
     @Insert
     void addFormula(FormulaEntity formula);
 
-    @Delete
-    void deleteFormula(FormulaEntity formula);
-
     @Query("DELETE FROM formulas WHERE name = :formulaName;")
-    void deleteFormulaByName(String formulaName);
+    void deleteFormula(String formulaName);
 
     @Query("DELETE FROM formulas;")
     void deleteAllFormulas();

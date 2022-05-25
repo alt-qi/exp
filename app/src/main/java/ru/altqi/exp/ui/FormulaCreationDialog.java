@@ -26,7 +26,7 @@ import ru.noties.jlatexmath.JLatexMathView;
 
 public class FormulaCreationDialog extends DialogFragment {
 
-    final FormulaDao formulaDao;
+    FormulaDao formulaDao;
     JLatexMathView formulaExpressionPreview;
     TextInputEditText formulaNameInput, formulaExpressionInput;
     Button positiveButton;
@@ -34,10 +34,6 @@ public class FormulaCreationDialog extends DialogFragment {
     Handler handler = new Handler();
     long showPreviewDelay = 600; // время, которое нужно будет подождать после завершения ввода,
                                  // чтобы отобразился предпросмотр формулы
-
-    public FormulaCreationDialog() {
-        this.formulaDao = FormulaDatabase.getDatabase(getActivity()).formulaDao();
-    }
 
     final private Runnable expressionInputFinishChecker = () -> {
         try {
@@ -72,20 +68,19 @@ public class FormulaCreationDialog extends DialogFragment {
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            if (formulaNameInput.getText().length() > 0 &&
-                    formulaExpressionInput.getText().length() > 0)
-                positiveButton.setEnabled(true);
-            else
-                positiveButton.setEnabled(false);
-        }
+        public void afterTextChanged(Editable editable) {}
 
         @Override
-        public void afterTextChanged(Editable editable) {}
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            // включаем кнопку, если поля формулы и имени не пустые, иначе - выключаем
+            positiveButton.setEnabled(formulaNameInput.getText().length() > 0 &&
+                    formulaExpressionInput.getText().length() > 0);
+        }
     };
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        formulaDao = FormulaDatabase.getDatabase(getContext()).formulaDao();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         return builder
                 .setTitle("Создание формулы")
@@ -119,15 +114,12 @@ public class FormulaCreationDialog extends DialogFragment {
         public void onClick(DialogInterface dialogInterface, int i) {
             if (i == DialogInterface.BUTTON_POSITIVE) {
 
-                FormulaListViewModel viewModel = new ViewModelProvider(getActivity()).get(FormulaListViewModel.class);
-                FormulaEntity formulaEntity = new FormulaEntity();
-
-                formulaEntity.name = formulaNameInput.getText().toString().trim();
-                formulaEntity.expression = formulaExpressionInput.getText().toString().trim();
-                formulaEntity.isFavorite = false;
+                FormulaEntity formulaEntity = new FormulaEntity(
+                        formulaNameInput.getText().toString().trim(),
+                        formulaExpressionInput.getText().toString().trim(),
+                        false);
 
                 formulaDao.addFormula(formulaEntity);
-                viewModel.updateFormulaList();
 
                 Snackbar.make(getActivity().findViewById(R.id.nav_host_fragment),
                         "Формула создана!", Snackbar.LENGTH_SHORT).show();

@@ -22,12 +22,12 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
     private final LayoutInflater inflater;
     private final FormulaDao formulaDao;
-    public List<FormulaEntity> formulas;
+    public List<FormulaEntity> formulaList;
 
     public FormulaAdapter(Context context, FormulaDao formulaDao) {
         this.inflater = LayoutInflater.from(context);
         this.formulaDao = formulaDao;
-        this.formulas = formulaDao.getAllFormulas();
+        this.formulaList = formulaDao.getFormulaList();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,23 +66,19 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
         }
 
         void deleteFormulaByName(String formulaName) {
-            formulaDao.deleteFormulaByName(formulaName);
             int formulaIndex = getFormulaIndexByName(formulaName);
-            deleteFormulaFromRecyclerView(formulaIndex);
+            formulaDao.deleteFormula(formulaName);
+            formulaList.remove(formulaIndex);
+            notifyItemRemoved(formulaIndex);
         }
 
         int getFormulaIndexByName(String formulaName) {
-            for (int i = 0; i < formulas.size(); i++) {
-                if (formulas.get(i).name.equals(formulaName)) {
+            for (int i = 0; i < formulaList.size(); i++) {
+                if (formulaList.get(i).name.equals(formulaName)) {
                     return i;
                 }
             }
             return 0;
-        }
-
-        void deleteFormulaFromRecyclerView(int formulaIndex) {
-            formulas.remove(formulaIndex);
-            notifyItemRemoved(formulaIndex);
         }
 
     }
@@ -95,7 +91,7 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(FormulaAdapter.ViewHolder holder, int position) {
-        FormulaEntity formulaEntity = formulas.get(position);
+        FormulaEntity formulaEntity = formulaList.get(position);
 
         holder.formulaExpressionView.setLatex(formulaEntity.expression);
         holder.formulaNameView.setText(formulaEntity.name);
@@ -104,6 +100,6 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return formulas.size();
+        return formulaList.size();
     }
 }

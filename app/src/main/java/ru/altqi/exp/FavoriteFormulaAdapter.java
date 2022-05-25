@@ -66,7 +66,7 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
         }
 
         void deleteFormulaByName(String formulaName) {
-            formulaDao.deleteFormulaByName(formulaName);
+            formulaDao.deleteFormula(formulaName);
             int formulaIndex = getFormulaIndexByName(formulaName);
             deleteFormulaFromRecyclerView(formulaIndex);
         }

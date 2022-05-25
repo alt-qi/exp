@@ -19,7 +19,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/formula_name_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/monsterrat_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,7 +50,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/formula_expression_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/monsterrat_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -44,14 +44,12 @@ public class FormulaListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.formulas_list);
         recyclerView.setAdapter(adapter);
 
-        viewModel.updateFormulaList();
-
         viewModel.liveData.observe(getViewLifecycleOwner(), formulas -> {
-            int old_size = adapter.formulas.size();
-            adapter.formulas = formulas;
+            int old_size = adapter.formulaList.size();
+            adapter.formulaList = formulas;
 
-            if (formulas.size() - old_size == 1) // костыль
-                adapter.notifyItemInserted(adapter.formulas.size() - 1);
+            if (formulas.size() - old_size == 1) // костыль, чтобы была красивая анимация добавления карточки
+                adapter.notifyItemInserted(adapter.formulaList.size() - 1);
             else
                 adapter.notifyDataSetChanged();
         });

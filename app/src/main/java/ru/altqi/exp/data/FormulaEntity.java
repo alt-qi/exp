@@ -16,4 +16,10 @@ public class FormulaEntity {
 
     @ColumnInfo(name = "is_favorite", defaultValue = "0")
     public boolean isFavorite;
+
+    public FormulaEntity(@NonNull String name, String expression, boolean isFavorite) {
+        this.name = name;
+        this.expression = expression;
+        this.isFavorite = isFavorite;
+    }
 }
