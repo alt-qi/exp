@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="formula_card_margin">10dp</dimen>
+    <dimen name="toolbar_text_margin_start">25dp</dimen>
+    <dimen name="toolbar_height">100dp</dimen>
+</resources>

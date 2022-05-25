@@ -18,13 +18,13 @@ import ru.altqi.exp.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
 
 
-public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHolder> {
+public class FormulaListAdapter extends RecyclerView.Adapter<FormulaListAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final FormulaDao formulaDao;
     public List<FormulaEntity> formulaList;
 
-    public FormulaAdapter(Context context, FormulaDao formulaDao) {
+    public FormulaListAdapter(Context context, FormulaDao formulaDao) {
         this.inflater = LayoutInflater.from(context);
         this.formulaDao = formulaDao;
         this.formulaList = formulaDao.getFormulaList();
@@ -84,13 +84,13 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
     }
 
     @Override
-    public FormulaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FormulaListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.card_formula, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FormulaAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(FormulaListAdapter.ViewHolder holder, int position) {
         FormulaEntity formulaEntity = formulaList.get(position);
 
         holder.formulaExpressionView.setLatex(formulaEntity.expression);
@@ -102,4 +102,5 @@ public class FormulaAdapter extends RecyclerView.Adapter<FormulaAdapter.ViewHold
     public int getItemCount() {
         return formulaList.size();
     }
+
 }

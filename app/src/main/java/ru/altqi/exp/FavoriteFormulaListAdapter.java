@@ -17,13 +17,13 @@ import ru.altqi.exp.data.FormulaDao;
 import ru.altqi.exp.data.FormulaEntity;
 import ru.noties.jlatexmath.JLatexMathView;
 
-public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormulaAdapter.ViewHolder> {
+public class FavoriteFormulaListAdapter extends RecyclerView.Adapter<FavoriteFormulaListAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final FormulaDao formulaDao;
     public List<FormulaEntity> favoriteFormulas;
 
-    public FavoriteFormulaAdapter(Context context, FormulaDao formulaDao) {
+    public FavoriteFormulaListAdapter(Context context, FormulaDao formulaDao) {
         this.inflater = LayoutInflater.from(context);
         this.formulaDao = formulaDao;
         this.favoriteFormulas = formulaDao.getFavoriteFormulas();
@@ -60,18 +60,15 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
         }
 
         void deleteFormulaFromFavoritesByName(String formulaName) {
-            formulaDao.deleteFormulaFromFavorites(formulaName);
             int formulaIndex = getFormulaIndexByName(formulaName);
-            deleteFormulaFromRecyclerView(formulaIndex);
+            formulaDao.deleteFormulaFromFavorites(formulaName);
+            favoriteFormulas.remove(formulaIndex);
+            notifyItemRemoved(formulaIndex);
         }
 
         void deleteFormulaByName(String formulaName) {
-            formulaDao.deleteFormula(formulaName);
             int formulaIndex = getFormulaIndexByName(formulaName);
-            deleteFormulaFromRecyclerView(formulaIndex);
-        }
-
-        void deleteFormulaFromRecyclerView(int formulaIndex) {
+            formulaDao.deleteFormula(formulaName);
             favoriteFormulas.remove(formulaIndex);
             notifyItemRemoved(formulaIndex);
         }
@@ -87,13 +84,13 @@ public class FavoriteFormulaAdapter extends RecyclerView.Adapter<FavoriteFormula
     }
 
     @Override
-    public FavoriteFormulaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FavoriteFormulaListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.card_formula, parent, false);
-        return new FavoriteFormulaAdapter.ViewHolder(view);
+        return new FavoriteFormulaListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FavoriteFormulaAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(FavoriteFormulaListAdapter.ViewHolder holder, int position) {
         FormulaEntity formulaEntity = favoriteFormulas.get(position);
 
         holder.formulaExpressionView.setLatex(formulaEntity.expression);

@@ -12,19 +12,15 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/toolbar">
+            android:layout_height="@dimen/toolbar_height">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:fontFamily="@font/monsterrat_bold"
-                android:gravity="center_vertical"
                 android:text="Избранные формулы"
-                android:textColor="@color/gray"
-                android:textSize="30sp" />
+                style="@style/toolbar_text_style"/>
 
         </androidx.appcompat.widget.Toolbar>
 

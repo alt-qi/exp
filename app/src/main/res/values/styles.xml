@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="formula_card_style" parent="Theme.AppCompat.Light">
-        <item name="cardElevation">2dp</item>
+    <style name="formula_card_style">
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
         <item name="cardMaxElevation">4dp</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/formula_card_margin</item>
         <item name="cardCornerRadius">15dp</item>
     </style>
+
+    <style name="toolbar_text_style">
+        <item name="android:layout_marginStart">@dimen/toolbar_text_margin_start</item>
+        <item name="android:fontFamily">@font/monsterrat_bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
 </resources>

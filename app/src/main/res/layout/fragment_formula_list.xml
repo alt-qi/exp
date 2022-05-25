@@ -12,21 +12,26 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/toolbar">
+            android:layout_height="@dimen/toolbar_height">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                android:fontFamily="@font/monsterrat_bold"
-                android:gravity="center_vertical"
                 android:text="Все формулы"
-                android:textColor="@color/gray"
-                android:textSize="30sp" />
+                style="@style/toolbar_text_style" />
 
         </androidx.appcompat.widget.Toolbar>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_query_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/formula_card_margin"
+            android:background="@drawable/search_background"
+            android:elevation="5dp"
+            app:queryHint="Начните вводить название..." />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/formulas_list"

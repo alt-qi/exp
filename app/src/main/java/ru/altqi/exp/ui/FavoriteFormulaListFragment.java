@@ -16,14 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ru.altqi.exp.FavoriteFormulaAdapter;
+import ru.altqi.exp.FavoriteFormulaListAdapter;
 import ru.altqi.exp.R;
 import ru.altqi.exp.data.FormulaDatabase;
 
 public class FavoriteFormulaListFragment extends Fragment {
 
     RecyclerView recyclerView;
-    FavoriteFormulaAdapter adapter;
+    FavoriteFormulaListAdapter adapter;
 
     public FavoriteFormulaListFragment() {
         // Required empty public constructor
@@ -35,7 +35,7 @@ public class FavoriteFormulaListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_favorite_formula_list, container, false);
 
-        adapter = new FavoriteFormulaAdapter(inflater.getContext(), FormulaDatabase.getDatabase(getActivity()).formulaDao());
+        adapter = new FavoriteFormulaListAdapter(inflater.getContext(), FormulaDatabase.getDatabase(getActivity()).formulaDao());
 
         recyclerView = view.findViewById(R.id.favorite_formula_list);
         recyclerView.setAdapter(adapter);
