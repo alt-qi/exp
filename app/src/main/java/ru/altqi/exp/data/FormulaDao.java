@@ -36,4 +36,7 @@ public interface FormulaDao {
 
     @Query("UPDATE formulas SET is_favorite = 0 WHERE name = :formulaName;")
     void deleteFormulaFromFavorites(String formulaName);
+
+    @Query("UPDATE formulas SET is_favorite = 0 WHERE is_favorite = 1;")
+    void deleteAllFromFavorites();
 }
