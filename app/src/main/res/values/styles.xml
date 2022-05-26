@@ -19,4 +19,8 @@
         <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
 
+    <style name="toolbar_style">
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+    </style>
+
 </resources>

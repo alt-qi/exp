@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height">
+            style="@style/toolbar_style">
 
             <TextView
                 android:layout_width="match_parent"

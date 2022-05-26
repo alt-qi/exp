@@ -24,8 +24,8 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="ru.altqi.exp.ui.UncompletedFragment"
+        android:name="ru.altqi.exp.ui.SettingsFragment"
         android:label="Настройки"
-        tools:layout="@layout/fragment_uncompleted" />
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>
