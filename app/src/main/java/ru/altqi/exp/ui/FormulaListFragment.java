@@ -80,13 +80,7 @@ public class FormulaListFragment extends Fragment {
                 // а формулы всегда добавляются в конец, то мы можем сообщить адаптеру о появлении
                 // нового элемента в конце списка. Костыль, но ведь работает :)
                 adapter.notifyItemInserted(adapter.formulaList.size() - 1);
-
-            else if (formulas.size() - old_size == 0);
-                // проверям, что размер списка не изменился, если это так - то значит что-то уже его
-                // сменило, в данном случае его сменила реализация удаления формулы из RecyclerView,
-                // которая находится в FormulaListAdapter.ViewHolder. Так как удаление формулы реализовано
-                // в другом классе, нам не нужно ничего делать и мы просто игнорируем это событие.
-
+            
             else
                 adapter.notifyDataSetChanged();
         });
