@@ -10,14 +10,14 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.scilab.forge.jlatexmath.ParseException;
 
-import ru.altqi.exp.FormulaListViewModel;
+import java.util.ArrayList;
+
 import ru.altqi.exp.R;
 import ru.altqi.exp.data.FormulaDao;
 import ru.altqi.exp.data.FormulaDatabase;
@@ -30,13 +30,14 @@ public class FormulaCreationDialog extends DialogFragment {
     FormulaDao formulaDao;
     JLatexMathView formulaExpressionPreview;
     TextInputEditText formulaNameInput, formulaExpressionInput;
+    ArrayList<String> existingNames = new ArrayList<>();
     Button positiveButton;
 
     Handler handler = new Handler();
     long showPreviewDelay = 600; // время, которое нужно будет подождать после завершения ввода,
                                  // чтобы отобразился предпросмотр формулы
 
-    final private Runnable expressionInputFinishChecker = () -> {
+    final private Runnable expressionPreviewTask = () -> {
         try {
             formulaExpressionPreview.setLatex(formulaExpressionInput.getText().toString());
         } catch (ParseException e) {
@@ -52,14 +53,14 @@ public class FormulaCreationDialog extends DialogFragment {
         @Override
         public void onTextChanged(final CharSequence s, int start, int before, int count) {
             // удаляем отложенный запуск Runnable, т. к. пользователь изменил текст
-            handler.removeCallbacks(expressionInputFinishChecker);
+            handler.removeCallbacks(expressionPreviewTask);
         }
 
         @Override
         public void afterTextChanged(final Editable s) {
             if (s.length() > 0) {
                 // создаём отложенный запуск Runnable после завершения ввода текста
-                handler.postDelayed(expressionInputFinishChecker, showPreviewDelay);
+                handler.postDelayed(expressionPreviewTask, showPreviewDelay);
             }
         }
     };
@@ -73,27 +74,48 @@ public class FormulaCreationDialog extends DialogFragment {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // включаем кнопку, если поля формулы и имени не пустые, иначе - выключаем
-            boolean isTexExpressionValid = true;
-            try {
-                JLatexMathDrawable.builder(charSequence.toString()).build();
-            } catch (ParseException e) {
-                isTexExpressionValid = false;
-            }
+            // включаем кнопку, если:
+            // 1. поля формулы и имени не пустые;
+            // 2. указанное в данный момент имя формулы ещё не занято;
+            // 3. TeX-выражение не содержит ошибок.
             positiveButton.setEnabled(formulaNameInput.getText().length() > 0 &&
                     formulaExpressionInput.getText().length() > 0 &&
-                    isTexExpressionValid);
+                    !existingNames.contains(charSequence.toString()) &&
+                    checkIfTexExpressionIsValid(formulaExpressionInput.getText().toString()));
         }
     };
+
+    private final DialogInterface.OnClickListener createFormulaButtonOnClickListener = (dialogInterface, i) -> {
+        if (i != DialogInterface.BUTTON_POSITIVE) return;
+        FormulaEntity formulaEntity = new FormulaEntity(
+                formulaNameInput.getText().toString().trim(),
+                formulaExpressionInput.getText().toString().trim(),
+                false);
+        formulaDao.addFormula(formulaEntity);
+        Snackbar.make(getActivity().findViewById(R.id.nav_host_fragment),
+                "Формула создана!", Snackbar.LENGTH_SHORT).show();
+    };
+
+    public static boolean checkIfTexExpressionIsValid(String expression) {
+        boolean isExpressionValid = true;
+        try {
+            JLatexMathDrawable.builder(expression).build();
+        } catch (ParseException e) {
+            isExpressionValid = false;
+        }
+        return isExpressionValid;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         formulaDao = FormulaDatabase.getDatabase(getContext()).formulaDao();
+        for (FormulaEntity formula: formulaDao.getFormulaList()) existingNames.add(formula.name);
+
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Создание формулы")
                 .setView(R.layout.dialog_formula_creation)
                 .setNegativeButton("Отмена", null)
-                .setPositiveButton("Создать", new CreateFormulaButtonOnClickListener())
+                .setPositiveButton("Создать", createFormulaButtonOnClickListener)
                 .create();
     }
 
@@ -114,26 +136,6 @@ public class FormulaCreationDialog extends DialogFragment {
         formulaExpressionInput.addTextChangedListener(formulaValidityWatcher);
         formulaNameInput.addTextChangedListener(formulaValidityWatcher);
     }
-
-    class CreateFormulaButtonOnClickListener implements DialogInterface.OnClickListener {
-
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-            if (i == DialogInterface.BUTTON_POSITIVE) {
-
-                FormulaEntity formulaEntity = new FormulaEntity(
-                        formulaNameInput.getText().toString().trim(),
-                        formulaExpressionInput.getText().toString().trim(),
-                        false);
-
-                formulaDao.addFormula(formulaEntity);
-
-                Snackbar.make(getActivity().findViewById(R.id.nav_host_fragment),
-                        "Формула создана!", Snackbar.LENGTH_SHORT).show();
-            }
-        }
-    }
-
 }
 
 
