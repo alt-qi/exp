@@ -22,6 +22,7 @@ import ru.altqi.exp.R;
 import ru.altqi.exp.data.FormulaDao;
 import ru.altqi.exp.data.FormulaDatabase;
 import ru.altqi.exp.data.FormulaEntity;
+import ru.noties.jlatexmath.JLatexMathDrawable;
 import ru.noties.jlatexmath.JLatexMathView;
 
 public class FormulaCreationDialog extends DialogFragment {
@@ -73,16 +74,22 @@ public class FormulaCreationDialog extends DialogFragment {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             // включаем кнопку, если поля формулы и имени не пустые, иначе - выключаем
+            boolean isTexExpressionValid = true;
+            try {
+                JLatexMathDrawable.builder(charSequence.toString()).build();
+            } catch (ParseException e) {
+                isTexExpressionValid = false;
+            }
             positiveButton.setEnabled(formulaNameInput.getText().length() > 0 &&
-                    formulaExpressionInput.getText().length() > 0);
+                    formulaExpressionInput.getText().length() > 0 &&
+                    isTexExpressionValid);
         }
     };
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         formulaDao = FormulaDatabase.getDatabase(getContext()).formulaDao();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return builder
+        return new AlertDialog.Builder(getActivity())
                 .setTitle("Создание формулы")
                 .setView(R.layout.dialog_formula_creation)
                 .setNegativeButton("Отмена", null)
